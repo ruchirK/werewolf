@@ -1,12 +1,3 @@
-// Copyright Materialize, Inc. All rights reserved.
-//
-// Use of this software is governed by the Business Source License
-// included in the LICENSE file.
-//
-// As of the Change Date specified in that file, in accordance with
-// the Business Source License, use of this software will be governed
-// by the Apache License, Version 2.0.
-
 use std::borrow::Cow;
 
 pub type Result<T> = std::result::Result<T, Error>;
@@ -28,8 +19,8 @@ pub enum Error {
     #[error("Waiting for futures to complete")]
     JoinError(#[from] tokio::task::JoinError),
 
-    #[error("Unable to flush csv file")]
-    CsvFlushError(#[from] std::io::Error),
+    #[error("Unable to parse schema json")]
+    JsonError(#[from] serde_json::error::Error),
 }
 
 impl From<String> for Error {
